@@ -13,11 +13,12 @@ Role Variables
 
 Each controllable setting has a corresponding set_ variable. This tells the role whether to enforce the setting or leave it alone.
 
-| Variable | required | default | choices | comments |
-| sudoers_mailto | no | false | false or any email address | any email address will set mailto default, "false" will un-set it |
-| set_sudoers_mailto | no | false | false, true | |
-| sudoers_mail_always | no | false | false, true | true sets mail_always, false unsets mail_always |
-| set_sudoers_mail_always | no | false | false, true | |
+| Variable                | Required | Default | Choices                   | Comments                                                          |
+|-------------------------|----------|---------|---------------------------|-------------------------------------------------------------------|
+| sudoers_mailto          | no       | false   | false or an email address | any email address will set mailto default, "false" will un-set it |
+| set_sudoers_mailto      | no       | false   | false, true               |                                                                   |
+| sudoers_mail_always     | no       | false   | false, true               | true sets mail_always, false unsets mail_always                   |
+| set_sudoers_mail_always | no       | false   | false, true               |                                                                   |
 
 Dependencies
 ------------
