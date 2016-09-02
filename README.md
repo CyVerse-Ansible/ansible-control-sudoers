@@ -3,6 +3,8 @@ control-sudoers
 
 Controls settings in an existing sudoers file without destroying/overwriting other existing state. Only handles a couple of configuration options right now but will likely be expanded later.
 
+!(https://travis-ci.org/CyVerse-Ansible/ansible-control-sudoers.svg?branch=master)
+
 Requirements
 ------------
 
