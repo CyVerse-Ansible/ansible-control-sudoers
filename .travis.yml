@@ -29,20 +29,7 @@ env:
     pkg_cmd: apt-get
 
 before_install:
-#   - 'sudo apt-get update -qq'
-#   - 'sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-engine'
-  - 'sudo docker run -it --name=test_dummy --privileged --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:rw ${distribution}:${version} bash'
-install:
-  - 'sudo docker exec test_dummy ${pkg_cmd} install python-pip'
-
-  # Install ansible
-  - 'sudo docker exec test_dummy pip install ansible'
-
-  # Check ansible version
-  - 'sudo docker exec test_dummy ansible --version'
-
-  # Create ansible.cfg with correct roles_path
-  - sudo docker exec test_dummy printf '[defaults]\nroles_path=../' >ansible.cfg
+  - 'sudo docker run -it --name=test_dummy --privileged --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:rw cyverse/ansible-test:2.1.1-${distribution}-${version} bash'
 
 script:
   - sudo docker exec test_dummy ansible-playbook tests/test.yml -i tests/inventory --syntax-check
