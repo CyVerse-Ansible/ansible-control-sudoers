@@ -31,39 +31,35 @@ env:
 before_install:
   - 'sudo apt-get update -qq'
   - 'sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-engine'
-  - 'container_id=$(mktemp)'
-  - 'sudo docker run --privileged --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:rw ${distribution}:${version} /bin/bash > "${container_id}"'
-#  - 'sudo docker start "$(cat ${container_ID})"'
-  - 'sudo docker attach "$(cat ${container_id})"'
-  - 'cd /etc/ansible/roles/role_under_test'
+  - 'sudo docker run --name=test_dummy --privileged --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:rw ${distribution}:${version} /bin/bash'
 
 install:
-  - $(pkg_mgr) install python-pip
+  - 'sudo docker exec test_dummy ${pkg_mgr} install python-pip'
 
   # Install ansible
-  - pip install ansible
+  - 'sudo docker exec test_dummy pip install ansible'
 
   # Check ansible version
-  - ansible --version
+  - 'sudo docker exec test_dummy ansible --version'
 
   # Create ansible.cfg with correct roles_path
-  - printf '[defaults]\nroles_path=../' >ansible.cfg
+  - sudo docker exec test_dummy printf '[defaults]\nroles_path=../' >ansible.cfg
 
 script:
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
-  - "ansible-playbook tests/test.yml -i tests/inventory --connection=local"
+  - sudo docker exec test_dummy ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  - "sudo docker exec test_dummy ansible-playbook tests/test.yml -i tests/inventory --connection=local"
   - >
-    ansible-playbook tests/test.yml -i tests/inventory --connection=local
+    sudo docker exec test_dummy ansible-playbook tests/test.yml -i tests/inventory --connection=local
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
   - >
-    sudo cat /etc/sudoers | grep -q "Defaults.*mailto=test@example.com"
+    sudo docker exec test_dummy cat /etc/sudoers | grep -q "Defaults.*mailto=test@example.com"
     && (echo 'mailto test: pass' && exit 0)
     || (echo 'mailto test: fail' && exit 1)
 
   - >
-    sudo cat /etc/sudoers | grep -q "Defaults.*mail_always"
+    sudo docker exec test_dummy cat /etc/sudoers | grep -q "Defaults.*mail_always"
     && (echo 'mail_always test: pass' && exit 0)
     || (echo 'mail_always test: fail' && exit 1)
 
