@@ -29,10 +29,9 @@ env:
     pkg_cmd: apt-get
 
 before_install:
-  - 'sudo apt-get update -qq'
-  - 'sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-engine'
-  - 'sudo docker run --name=test_dummy --privileged --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:rw ${distribution}:${version} sed -i -e "s/^\(Defaults\s*requiretty\)/#--- \1/" /etc/sudoers && bash'
-
+#   - 'sudo apt-get update -qq'
+#   - 'sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-engine'
+  - 'sudo docker run -it --name=test_dummy --privileged --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:rw ${distribution}:${version} bash'
 install:
   - 'sudo docker exec test_dummy ${pkg_mgr} install python-pip'
 
