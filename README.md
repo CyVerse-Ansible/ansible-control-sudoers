@@ -4,6 +4,7 @@ control-sudoers
 Controls settings in an existing sudoers file without destroying/overwriting other existing state. Only handles a couple of configuration options right now but will likely be expanded later.
 
 [![Build Status](https://travis-ci.org/CyVerse-Ansible/ansible-control-sudoers.svg?branch=master)](https://travis-ci.org/CyVerse-Ansible/ansible-control-sudoers)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-apt-blue.svg)](https://galaxy.ansible.com/CyVerse-Ansible/ansible-control-sudoers/)
 
 See also https://galaxy.ansible.com/detail#/role/4827. As of September 2016, more configuration options than this role, but doesn't claim compatibility with RHEL-derived distros.
 
