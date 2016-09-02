@@ -28,13 +28,20 @@ before_install:
   - 'sudo docker run -it --name=test_dummy --privileged --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:rw cyverse/ansible-test:latest-${distribution}-${version} bash'
 
 script:
+  # Syntax check
   - sudo docker exec test_dummy ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml -i tests/inventory --syntax-check
+
+  # Playbook run test
   - "sudo docker exec test_dummy ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml -i tests/inventory --connection=local"
+
+  # Idempotence test
   - >
     sudo docker exec test_dummy ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml -i tests/inventory --connection=local
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
+
+  # Test that configuration options actually applied
   - >
     sudo docker exec test_dummy cat /etc/sudoers | grep -q "Defaults.*mailto=test@example.com"
     && (echo 'mailto test: pass' && exit 0)
