@@ -9,4 +9,4 @@
     set_sudoers_mail_always: true
 
   roles:
-    - role-under-test
+    - role_under_test
