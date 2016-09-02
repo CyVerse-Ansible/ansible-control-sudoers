@@ -16,14 +16,12 @@ Ansible 2.X
 Role Variables
 --------------
 
-Each controllable setting has a corresponding set_ variable. This tells the role whether to enforce the setting or leave it alone.
+If you don't wish for a particular setting to be modified, then don't define its variable.
 
 | Variable                | Required | Default | Choices                   | Comments                                                          |
 |-------------------------|----------|---------|---------------------------|-------------------------------------------------------------------|
-| sudoers_mailto          | no       | false   | false or an email address | any email address will set mailto default, "false" will un-set it |
-| set_sudoers_mailto      | no       | false   | false, true               |                                                                   |
+| sudoers_mailto          | no       | false   | false or an email address | any email address will set mailto default, "false" removes an existing email address |
 | sudoers_mail_always     | no       | false   | false, true               | true sets mail_always, false unsets mail_always                   |
-| set_sudoers_mail_always | no       | false   | false, true               |                                                                   |
 
 Dependencies
 ------------
@@ -36,9 +34,7 @@ Example Playbook
     - hosts: all
       vars:
         sudoers_mailto: security@example.com
-        set_sudoers_mailto: false
         sudoers_mail_always: false
-        set_sudoers_mail_always: true
       roles:
          - control-sudoers
 

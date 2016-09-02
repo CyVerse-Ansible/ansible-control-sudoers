@@ -2,11 +2,5 @@
 - hosts: localhost
   become: true
 
-  vars:
-    sudoers_mailto: test@example.com
-    set_sudoers_mailto: true
-    sudoers_mail_always: true
-    set_sudoers_mail_always: true
-
   roles:
     - role_under_test

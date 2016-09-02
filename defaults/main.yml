@@ -1,7 +1,0 @@
----
-# defaults file for ansible-control-sudoers
-
-sudoers_mailto: false
-set_sudoers_mailto: false
-sudoers_mail_always: false
-set_sudoers_mail_always: false
