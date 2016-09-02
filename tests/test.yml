@@ -9,4 +9,4 @@
     set_sudoers_mail_always: true
 
   roles:
-    - ansible-control-sudoers
+    - role-under-test
