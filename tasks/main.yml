@@ -1,7 +1,9 @@
 ---
 # tasks file for ansible-control-sudoers
 - name: set sudoers mailto address
-  when: sudoers_mailto is defined and sudoers_mailto != false
+  when:
+    - sudoers_mailto is defined
+    - sudoers_mailto != "false"
   lineinfile:
     dest: /etc/sudoers
     backup: yes
@@ -11,7 +13,9 @@
     insertbefore: "^# Defaults.*$"
 
 - name: un-set sudoers mailto address
-  when: sudoers_mailto is defined and sudoers_mailto == false
+  when:
+    - sudoers_mailto is defined
+    - sudoers_mailto == "false"
   lineinfile:
     dest: /etc/sudoers
     backup: yes
@@ -19,7 +23,9 @@
     state: absent
 
 - name: set mail_always
-  when: sudoers_mail_always is defined and sudoers_mail_always != false
+  when:
+    - sudoers_mail_always is defined
+    - sudoers_mail_always != "false"
   lineinfile:
     dest: /etc/sudoers
     backup: yes
@@ -28,7 +34,9 @@
     insertafter: "^# Defaults.*$"
 
 - name: unset mail_always
-  when: sudoers_mail_always is defined and sudoers_mail_always == false
+  when:
+    - sudoers_mail_always is defined
+    - sudoers_mail_always == "false"
   lineinfile:
     dest: /etc/sudoers
     backup: yes
