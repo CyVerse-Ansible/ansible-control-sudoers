@@ -83,9 +83,12 @@ script:
     fi
 
 
+# notifications:
+#   webhooks:
+#     urls:
+#       - https://galaxy.ansible.com/api/v1/notifications
+#     on_success: always
+#     on_failure: never
+
 notifications:
-  webhooks:
-    urls:
-      - https://galaxy.ansible.com/api/v1/notifications
-    on_success: always
-    on_failure: never
+    webhooks: https://galaxy.ansible.com/api/v1/notifications/
