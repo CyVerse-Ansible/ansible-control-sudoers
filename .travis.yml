@@ -71,7 +71,7 @@ script:
 
   # Test that configuration options were unset
   - >
-    if (sudo docker exec test_dummy cat /etc/sudoers | grep -q "Defaults.*mailto=test@example.com")
+    if (sudo docker exec test_dummy cat /etc/sudoers | grep -q "Defaults.*mailto=.*")
     then (echo 'mailto absent test: fail' && exit 1)
     else (echo 'mailto absent test: pass' && exit 0)
     fi
@@ -84,4 +84,8 @@ script:
 
 
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  webhooks:
+    urls:
+      - https://galaxy.ansible.com/api/v1/notifications
+    on_success: always
+    on_failure: never
