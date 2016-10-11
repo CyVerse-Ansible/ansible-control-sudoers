@@ -49,6 +49,8 @@ script:
     || (echo 'Idempotence test: fail' && exit 1)
 
   # Test that configuration options were set
+  - sudo docker exec test_dummy cat /etc/sudoers
+
   - >
     sudo docker exec test_dummy cat /etc/sudoers | grep -q "Defaults.*mailto=test@example.com"
     && (echo 'mailto test: pass' && exit 0)
@@ -70,6 +72,8 @@ script:
     || (echo 'Idempotence test: fail' && exit 1)
 
   # Test that configuration options were unset
+  - sudo docker exec test_dummy cat /etc/sudoers
+
   - >
     if (sudo docker exec test_dummy cat /etc/sudoers | grep -q "Defaults.*mailto=.*")
     then (echo 'mailto absent test: fail' && exit 1)
