@@ -8,6 +8,7 @@
     backup: yes
     regexp: "^Defaults mailto=.*$"
     state: absent
+  changed_when: false
 
 - name: set sudoers mailto address
   when:
@@ -18,7 +19,7 @@
     backup: yes
     line: "Defaults mailto={{ sudoers_mailto }}"
     state: present
-    insertbefore: "^# Defaults.*$"
+    insertbefore: "^#* *Defaults.*$"
 
 - name: unset mail_always
   when:
@@ -39,4 +40,4 @@
     backup: yes
     line: "Defaults mail_always"
     state: present
-    insertafter: "^# Defaults.*$"
+    insertafter: "^#* *Defaults.*$"
