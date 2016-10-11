@@ -10,7 +10,7 @@
     regexp: "^Defaults mailto=.*$"
     state: absent
 
-- name: remove any existing sudoers mailto address prior to setting
+- name: remove any other sudoers mailto address prior to setting new one
   when:
     - sudoers_mailto is defined
     - sudoers_mailto != "false"
