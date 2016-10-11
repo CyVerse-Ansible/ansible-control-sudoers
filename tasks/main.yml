@@ -1,14 +1,24 @@
 ---
 # tasks file for ansible-control-sudoers
-- name: un-set existing sudoers mailto address
+- name: un-set sudoers mailto address
   when:
     - sudoers_mailto is defined
+    - sudoers_mail_always == "false"
   lineinfile:
     dest: /etc/sudoers
     backup: yes
     regexp: "^Defaults mailto=.*$"
     state: absent
-  changed_when: false
+
+- name: remove any existing sudoers mailto address prior to setting
+  when:
+    - sudoers_mailto is defined
+    - sudoers_mailto != "false"
+  lineinfile:
+    dest: /etc/sudoers
+    backup: yes
+    regexp: "^Defaults mailto=((?!{{ sudoers_mailto }}).)*$"
+    state: absent
 
 - name: set sudoers mailto address
   when:
