@@ -3,7 +3,7 @@
 - name: set sudoers mailto address
   when:
     - sudoers_mailto is defined
-    - sudoers_mailto|default(false)|bool == true
+    - sudoers_mailto|default(false)|bool != false
   lineinfile:
     dest: /etc/sudoers
     backup: yes
@@ -25,7 +25,7 @@
 - name: set mail_always
   when:
     - sudoers_mail_always is defined
-    - sudoers_mail_always|default(false)|bool == true
+    - sudoers_mail_always|default(false)|bool != false
   lineinfile:
     dest: /etc/sudoers
     backup: yes
