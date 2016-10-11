@@ -12,7 +12,7 @@
 - name: set sudoers mailto address
   when:
     - sudoers_mailto is defined
-    - sudoers_mailto|default(false)|bool != false
+    - sudoers_mailto != false
   lineinfile:
     dest: /etc/sudoers
     backup: yes
@@ -23,7 +23,7 @@
 - name: unset mail_always
   when:
     - sudoers_mail_always is defined
-    - sudoers_mail_always|default(false)|bool == false
+    - sudoers_mail_always == false
   lineinfile:
     dest: /etc/sudoers
     backup: yes
@@ -33,7 +33,7 @@
 - name: set mail_always
   when:
     - sudoers_mail_always is defined
-    - sudoers_mail_always|default(false)|bool != false
+    - sudoers_mail_always != false
   lineinfile:
     dest: /etc/sudoers
     backup: yes
